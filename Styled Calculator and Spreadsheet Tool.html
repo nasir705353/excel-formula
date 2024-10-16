@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Calculator and Spreadsheet Tool</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        h1, h2 { 
+            color: #333; 
+        }
+        .container { 
+            background: #fff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+            margin-bottom: 20px; 
+        }
+        input[type="text"], input[type="number"] { 
+            width: calc(100% - 22px); 
+            padding: 10px; 
+            margin: 5px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+        }
+        button { 
+            padding: 10px 15px; 
+            margin-top: 10px; 
+            background-color: #28a745; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        button:hover { 
+            background-color: #218838; 
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin-top: 20px; 
+        }
+        th, td { 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            text-align: center; 
+            background-color: #f9f9f9; 
+        }
+        .result { 
+            margin-top: 20px; 
+            font-weight: bold; 
+            color: #333; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Styled Calculator and Spreadsheet Tool</h1>
+    
+    <div class="container">
+        <h2>Advanced Calculator</h2>
+        <input type="text" id="num1" placeholder="Enter first number">
+        <input type="text" id="num2" placeholder="Enter second number">
+        <button onclick="calculate('+')">Add</button>
+        <button onclick="calculate('-')">Subtract</button>
+        <button onclick="calculate('*')">Multiply</button>
+        <button onclick="calculate('/')">Divide</button>
+        <div class="result" id="calcResult"></div>
+    </div>
+
+    <div class="container">
+        <h2>Simple Spreadsheet Tool</h2>
+        <table>
+            <tr>
+                <th>Value 1</th>
+                <th>Value 2</th>
+                <th>Value 3</th>
+            </tr>
+            <tr>
+                <td><input type="number" class="cell"></td>
+                <td><input type="number" class="cell"></td>
+                <td><input type="number" class="cell"></td>
+            </tr>
+            <tr>
+                <td><input type="number" class="cell"></td>
+                <td><input type="number" class="cell"></td>
+                <td><input type="number" class="cell"></td>
+            </tr>
+        </table>
+        <button onclick="calculateSum()">Calculate Sum</button>
+        <button onclick="calculateAverage()">Calculate Average</button>
+        <h2 id="spreadsheetResult"></h2>
+    </div>
+
+    <script>
+        function calculate(operation) {
+            var num1 = parseFloat(document.getElementById('num1').value);
+            var num2 = parseFloat(document.getElementById('num2').value);
+            var result;
+
+            switch (operation) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num2 !== 0 ? num1 / num2 : 'Cannot divide by zero';
+                    break;
+            }
+            document.getElementById('calcResult').innerText = 'Result: ' + result;
+        }
+
+        function calculateSum() {
+            const cells = document.querySelectorAll('.cell');
+            let sum = 0;
+            cells.forEach(cell => {
+                sum += parseFloat(cell.value) || 0;
+            });
+            document.getElementById('spreadsheetResult').innerText = 'Sum: ' + sum;
+        }
+
+        function calculateAverage() {
+            const cells = document.querySelectorAll('.cell');
+            let sum = 0;
+            let count = 0;
+            cells.forEach(cell => {
+                if (cell.value) {
+                    sum += parseFloat(cell.value);
+                    count++;
+                }
+            });
+            const average = count > 0 ? sum / count : 0;
+            document.getElementById('spreadsheetResult').innerText = 'Average: ' + average;
+        }
+    </script>
+</body>
+</html>
